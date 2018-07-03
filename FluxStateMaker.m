@@ -37,7 +37,7 @@ if strncmp(stateName,'setup',5)
             nextState = ['water_' ABC(iPatch)];
             smaChange = {smaChange{:}, PortIn, nextState};
             if stateName(end-3+iPatch) == '1' && TaskParameters.GUI.Cued
-                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255};
+                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255, 'WireState',2^(3-iPatch)};
             end
         end
     end
@@ -48,14 +48,14 @@ elseif strncmp(stateName,'water',5)
     smaChange = {'Tup','exit'};
     smaOut = {smaOut{:}, 'ValveState', 2^(Port-1)};
     if TaskParameters.GUI.Cued
-        smaOut = {smaOut{:},strcat('PWM',Ports_ABC(ABC==stateName(end))),0};
+        smaOut = {smaOut{:},strcat('PWM',Ports_ABC(ABC==stateName(end))),0, 'WireState',0};
     end
 elseif strncmp(stateName,'IRI',3)
     for iPatch = 1:numel(ABC)
         if strcmp(stateName(5),ABC(iPatch)) % PATCH WHERE LAST REWARD WAS OBTAINED
             smaChange = {smaChange{:}, 'GlobalTimer4_End',['setup' stateName(end-2:end)]}; % THIS WILL BREAK IF ANIMAL COLLECTS >numel(ListX) REWARDS ON SAME SIDE
             if TaskParameters.GUI.Cued
-                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),0};
+                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),0, 'WireState',0};
             end
         else % ALL OTHER PATCHES
             if strcmp(stateName(end-3+iPatch),'0')
@@ -70,7 +70,7 @@ elseif strncmp(stateName,'IRI',3)
             elseif strcmp(stateName(end-3+iPatch),'1')
                 smaChange = {smaChange{:},['Port' num2str(floor(mod(TaskParameters.GUI.Ports_ABC/10^(3-iPatch),10))) 'In'],['water_' ABC(iPatch)]};
                 if TaskParameters.GUI.Cued
-                    smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255};
+                    smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255,'WireState',2^(3-iPatch)};
                 end
             end
         end
