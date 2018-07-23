@@ -37,7 +37,7 @@ if strncmp(stateName,'setup',5)
             nextState = ['water_' ABC(iPatch)];
             smaChange = {smaChange{:}, PortIn, nextState};
             if stateName(end-3+iPatch) == '1' && TaskParameters.GUI.Cued
-                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255, 'WireState',2^(3-iPatch)};
+                smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255, 'WireState',2^(iPatch-1)};
             end
         end
     end
@@ -70,7 +70,7 @@ elseif strncmp(stateName,'IRI',3)
             elseif strcmp(stateName(end-3+iPatch),'1')
                 smaChange = {smaChange{:},['Port' num2str(floor(mod(TaskParameters.GUI.Ports_ABC/10^(3-iPatch),10))) 'In'],['water_' ABC(iPatch)]};
                 if TaskParameters.GUI.Cued
-                    smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255,'WireState',2^(3-iPatch)};
+                    smaOut = {smaOut{:}, strcat('PWM',Ports_ABC(iPatch)),255,'WireState',2^(iPatch-1)};
                 end
             end
         end
