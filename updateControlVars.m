@@ -27,7 +27,7 @@ if TaskParameters.GUI.Deplete
     try
         Latent.State1(end-3+find(ndxRwdArm)) = Latent.ListX(find(Latent.ListX==Latent.State1(end-3+find(ndxRwdArm)))+1);
     catch
-        error('Animal collected a sequence of rewards longer than allowed. Try increasing Latent.ListX, and consider checking noseports. (TG Feb 2, 2018)')
+        warning('Animal collected a sequence of rewards longer than allowed. Try increasing Latent.ListX, and consider checking noseports. (TG Feb 2, 2018)')
     end
     for iPatch = find(~ndxRwdArm)
         if ~strcmp(Latent.State1(end-3+iPatch),'1')
