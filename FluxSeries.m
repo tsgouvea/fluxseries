@@ -29,6 +29,7 @@ if isempty(fieldnames(TaskParameters))
     
     %% General
     TaskParameters.GUI.Series = 'ABC';
+    TaskParameters.GUIMeta.Series.Style = 'edittext';
     TaskParameters.GUI.Deplete = true; % false: classic concurrent VI; true: rew magnitude decays for repeated responses, resets after different arm visited
     TaskParameters.GUIMeta.Deplete.Style = 'checkbox';
     TaskParameters.GUI.Cued = true; % light on when reward available
@@ -41,6 +42,10 @@ if isempty(fieldnames(TaskParameters))
     
 end
 BpodParameterGUI('init', TaskParameters);
+
+%% User specific mod
+% TaskParameters.GUI.Series = randsample('ABC',3);
+% warning('Series ABC shuffled')
 
 %% Trial type vectors
 
