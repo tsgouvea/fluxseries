@@ -89,6 +89,7 @@ if true % reshuffles series at beginning of session
 end
 
 %% Main loop
+getgit()
 RunSession = true;
 % iTrial = 1;
 sessionTimer = tic;
