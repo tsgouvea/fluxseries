@@ -97,6 +97,7 @@ sessionTimer = tic;
 while RunSession
     
     TaskParameters = BpodParameterGUI('sync', TaskParameters);
+    BpodSystem.ProtocolSettings = TaskParameters;
     
     sma = stateMatrix();
     SendStateMatrix(sma);
