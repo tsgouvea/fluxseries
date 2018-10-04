@@ -48,8 +48,9 @@ end
 if TaskParameters.GUI.Deplete
     if (strncmp('water',listStates{visited(end)},5))
         n = find(Latent.ListX==Latent.State1(end-3+find(ndxRwdArm)))-1;
-        Latent.(['rew' ABC(ndxRwdArm)]) = ceil(TaskParameters.GUI.rewFirst*(TaskParameters.GUI.rewLast/...
-            TaskParameters.GUI.rewFirst)^((n-1)/(TaskParameters.GUI.(['rewN_' ABC(ndxRwdArm)])-1)));
+        Latent.(['rew' ABC(ndxRwdArm)]) = ceil(TaskParameters.GUI.rewFirst*... % initial magnitude times...
+            (TaskParameters.GUI.rewLast/TaskParameters.GUI.rewFirst)^((n-1)/(TaskParameters.GUI.(['rewN_' ABC(ndxRwdArm)])-1))*... % deplete factor times...
+            ((1-TaskParameters.GUI.DepleteVar)+TaskParameters.GUI.DepleteVar*rand*2)); % bounded unif noise
         TaskParameters.GUI.(['rew' ABC(ndxRwdArm)]) = Latent.(['rew' ABC(ndxRwdArm)]);
     end
 end

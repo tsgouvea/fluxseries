@@ -35,10 +35,11 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUIMeta.Series.Style = 'edittext';
     TaskParameters.GUI.Deplete = true; % false: classic concurrent VI; true: rew magnitude decays for repeated responses, resets after different arm visited
     TaskParameters.GUIMeta.Deplete.Style = 'checkbox';
+    TaskParameters.GUI.DepleteVar = .05; %
     TaskParameters.GUI.Cued = true; % light on when reward available
     TaskParameters.GUIMeta.Cued.Style = 'checkbox';
     TaskParameters.GUI.Ports_ABC = '123';
-    TaskParameters.GUIPanels.General = {'Ports_ABC','Series','Cued','Deplete','isBridgeUp','BridgeWhen'};
+    TaskParameters.GUIPanels.General = {'Ports_ABC','Series','Cued','Deplete','DepleteVar','isBridgeUp','BridgeWhen'};
     
     %%
     TaskParameters.GUI = orderfields(TaskParameters.GUI);
