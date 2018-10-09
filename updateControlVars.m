@@ -44,7 +44,9 @@ end
 for iPatch = 1:numel(ABC)
     Latent.(['rew' ABC(iPatch)]) = TaskParameters.GUI.rewFirst;
     TaskParameters.GUI.(['rew' ABC(iPatch)]) = Latent.(['rew' ABC(iPatch)]);
+    BpodSystem.Data.Custom.(['rew' ABC(iPatch)])(BpodSystem.Data.nTrials) = Latent.(['rew' ABC(iPatch)]);
 end
+
 if TaskParameters.GUI.Deplete
     if (strncmp('water',listStates{visited(end)},5))
         n = find(Latent.ListX==Latent.State1(end-3+find(ndxRwdArm)))-1;
@@ -52,8 +54,8 @@ if TaskParameters.GUI.Deplete
             (TaskParameters.GUI.rewLast/TaskParameters.GUI.rewFirst)^((n-1)/(TaskParameters.GUI.(['rewN_' ABC(ndxRwdArm)])-1))*... % deplete factor times...
             ((1-TaskParameters.GUI.DepleteVar)+TaskParameters.GUI.DepleteVar*rand*2)); % bounded unif noise
         TaskParameters.GUI.(['rew' ABC(ndxRwdArm)]) = Latent.(['rew' ABC(ndxRwdArm)]);
+        BpodSystem.Data.Custom.(['rew' ABC(ndxRwdArm)])(BpodSystem.Data.nTrials) = Latent.(['rew' ABC(ndxRwdArm)]);
     end
 end
-
 
 end
